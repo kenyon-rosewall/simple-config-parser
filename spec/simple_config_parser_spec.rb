@@ -36,7 +36,8 @@ describe SimpleConfigParser do
 
 		{
 			'foo=bar' => ['foo', 'bar'],
-			'baz = bip' => ['baz', 'bip']
+			'baz = bip' => ['baz', 'bip'],
+			'host = test.com' => ['host', 'test.com']
 		}.each do |line, expected_output|
 			it "should return array on valid line" do
 				parser = SimpleConfigParser.new
@@ -45,6 +46,26 @@ describe SimpleConfigParser do
 
 				expect(output).to eq(expected_output)
 			end
+		end
+
+		it "should return integers" do
+			parser = SimpleConfigParser.new
+			line = 'server_id=55331'
+			expected_output = ['server_id', 55331]
+
+			output = parser.parse_line(line)
+
+			expect(output).to eq(expected_output)
+		end
+
+		it "should return floats" do
+			parser = SimpleConfigParser.new
+			line = 'server_load_alarm=2.5'
+			expected_output = ['server_load_alarm', 2.5]
+
+			output = parser.parse_line(line)
+
+			expect(output).to eq(expected_output)
 		end
 	end
 end
