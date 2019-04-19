@@ -83,5 +83,20 @@ describe SimpleConfigParser do
 				expect(output).to eq(expected_output)
 			end
 		end
+
+		[
+			'# this is a comment',
+			' # this is also a comment',
+			'',
+			'    '
+		].each do |line |
+			it "should ignore commented out and blank lines" do
+				parser = SimpleConfigParser.new
+
+				output = parser.parse_line(line)
+
+				expect(output).to eq(nil)
+			end
+		end
 	end
 end
