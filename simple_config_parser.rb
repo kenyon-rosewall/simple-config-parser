@@ -44,6 +44,18 @@ class SimpleConfigParser
 		end 
 
 		# Return the cleaned array of key,value
-		config_arr
+		return config_arr
+	end
+
+	def parse_file
+		File.open(@config_file, "r").each do |line|
+			# Check if valid line and then @config hash
+			# It will overwrite values if they are repeated in the config file
+			if out = parse_line(line)
+				@config[ out[0].to_sym ] = out[1]
+			end
+		end
+
+		return @config
 	end
 end

@@ -99,4 +99,15 @@ describe SimpleConfigParser do
 			end
 		end
 	end
+
+	describe "#parse_file" do
+		it "should return hash with symbol keys" do
+			parser = SimpleConfigParser.new
+
+			output = parser.parse_file
+
+			expect(output).to be_a(Hash)
+			expect(output.keys[0]).to be_a(Symbol)
+		end
+	end
 end
