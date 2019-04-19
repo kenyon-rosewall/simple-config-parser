@@ -67,5 +67,21 @@ describe SimpleConfigParser do
 
 			expect(output).to eq(expected_output)
 		end
+
+		{
+			'verbose =true' => ['verbose', true],
+			'test_mode = on' => ['test_mode', true],
+			'test_mode=off' => ['test_mode', false],
+			'send_notifications = yes' => ['send_notifications', true],
+			'send_notifications=no' => ['send_notifications', false]
+		}.each do |line, expected_output|
+			it "should return booleans" do
+				parser = SimpleConfigParser.new
+
+				output = parser.parse_line(line)
+
+				expect(output).to eq(expected_output)
+			end
+		end
 	end
 end
